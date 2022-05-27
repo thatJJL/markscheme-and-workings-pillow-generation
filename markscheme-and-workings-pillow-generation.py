@@ -1,7 +1,12 @@
-#markscheme-and-workings-pillow-generation2
-#Importing import_or_install function
+#markscheme-and-workings-pillow-generation3
+#
 import private.import_or_install as ioi
 
+from PIL import Image
+
+
+def create_A4_page():
+    print("WIP")
 
 
 def main():
@@ -11,16 +16,15 @@ def main():
 
 
     #For checking if it is installed
-    from PIL import Image
+    '''   
     #https://pythonexamples.org/python-pillow-create-image/
-
     width = 400
     height = 300
 
     img  = Image.new( mode = "RGB", size = (width, height) )
     img.show()
+    '''
     
-    input()
 
 if __name__ == "__main__":
     main()
