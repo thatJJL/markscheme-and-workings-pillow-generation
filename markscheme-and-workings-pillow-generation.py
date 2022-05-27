@@ -1,5 +1,5 @@
-#markscheme-and-workings-pillow-generation7
-#Marks box
+#markscheme-and-workings-pillow-generation8
+#Updated marks box function - (its) name, (paste) position, text colour
 
 import private.import_or_install as ioi
 
@@ -10,16 +10,22 @@ from PIL import ImageDraw
 #def dpi_to_pixels(): #For converting page dimensions to pixels using dpi.
 
 #def mark_scored_text(image_object, text_line, marks): #text line instead of just text as it won't yet do new lines, neccarily.
-def mark_scored_text(image_object, marks):
+def paste_mark_box(image_object, marks, posx, posy, text_col = (0,0,0)):
+    #It edits the image obect directly.
 
     mark_text = f"[{marks}"
     if marks != 1:
         mark_text += " marks]"
     else:
         mark_text += " mark]"
-        
+
+
+    #Add validation for if the (paste) position is within the canvas 16:37 i8 27/May/22. TODO.
     
-    image_object.text((28, 36), mark_text, fill=(255, 0, 0))
+    image_object.text((posx, posy),
+                      mark_text,
+                      fill= text_col
+                      )
     
 
 def create_page(height = 2480, width = 3508, colour = ( 255 , 255 , 255 )):
@@ -34,6 +40,8 @@ def create_page(height = 2480, width = 3508, colour = ( 255 , 255 , 255 )):
                       #color = ( 153 , 153 , 255 )
                       color = colour
                       )
+
+    #Maybe allow fractions to be input so that way marking could have one of two marks scored. That or a blank denominator so it can have the marks achieved written on. 16:41pm 27/May/22 i8. TODO. I'd thought about the blank top fraction when first writing this (function).
     
     
     return img
@@ -54,27 +62,15 @@ def main():
     '''
 
     page_col = create_page(colour = test_page_colour)
-    page_col.show()
+    #page_col.show()
     
-
-
-
-    #For checking if it is installed
-    '''   
-    #https://pythonexamples.org/python-pillow-create-image/
-    width = 400
-    height = 300
-
-    img  = Image.new( mode = "RGB", size = (width, height) )
-    img.show()
-    '''
 
     #https://www.geeksforgeeks.org/adding-text-on-image-using-python-pil/
     #writing = ImageDraw.Draw(page_col)
     write_on_page = ImageDraw.Draw(page_col)
     #write_on_page.text((28, 36), "nice Car", fill=(255, 0, 0))
-    mark_scored_text(write_on_page, 1)
-    mark_scored_text(write_on_page, 2)
+    paste_mark_box(write_on_page, 1, 100, 100)
+    paste_mark_box(write_on_page, 2, 100, 200, (255, 0, 0))
     page_col.show()
     
     
