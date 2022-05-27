@@ -1,15 +1,25 @@
-#markscheme-and-workings-pillow-generation6
-#Added colour to the pages
+#markscheme-and-workings-pillow-generation7
+#Marks box
 
 import private.import_or_install as ioi
 
 from PIL import Image
+from PIL import ImageDraw
 
 
 #def dpi_to_pixels(): #For converting page dimensions to pixels using dpi.
 
-def mark_scored_text():
-    print()
+#def mark_scored_text(image_object, text_line, marks): #text line instead of just text as it won't yet do new lines, neccarily.
+def mark_scored_text(image_object, marks):
+
+    mark_text = f"[{marks}"
+    if marks != 1:
+        mark_text += " marks]"
+    else:
+        mark_text += " mark]"
+        
+    
+    image_object.text((28, 36), mark_text, fill=(255, 0, 0))
     
 
 def create_page(height = 2480, width = 3508, colour = ( 255 , 255 , 255 )):
@@ -35,15 +45,17 @@ def main():
     ioi.import_or_install("Pillow", "PIL")
 
     test_page_colour = ( 153 , 153 , 255 )
-
+    '''
     page = create_page()
     page.show()
 
     square = create_page(300, 300)
     square.show()
+    '''
 
     page_col = create_page(colour = test_page_colour)
     page_col.show()
+    
 
 
 
@@ -56,6 +68,15 @@ def main():
     img  = Image.new( mode = "RGB", size = (width, height) )
     img.show()
     '''
+
+    #https://www.geeksforgeeks.org/adding-text-on-image-using-python-pil/
+    #writing = ImageDraw.Draw(page_col)
+    write_on_page = ImageDraw.Draw(page_col)
+    #write_on_page.text((28, 36), "nice Car", fill=(255, 0, 0))
+    mark_scored_text(write_on_page, 1)
+    mark_scored_text(write_on_page, 2)
+    page_col.show()
+    
     
 
 if __name__ == "__main__":
